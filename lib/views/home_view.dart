@@ -1,8 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
+
+  @override
+  _HomeViewState createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  List<String> ingredients = [];
 
   @override
   Widget build(BuildContext context) {
@@ -17,36 +25,124 @@ class HomeView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red[700],
         onPressed: () {
-          showModalBottomSheet(
+          showDialog(
             context: context,
             builder: (context) {
-              return Container(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    const TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Nome da Receita',
+              return Dialog(
+                child: SizedBox(
+                  height: 400,
+                  child: Expanded(
+                    child: AlertDialog(
+                      content: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            const TextField(
+                              decoration: InputDecoration(
+                                labelText: 'Nome da Receita',
+                              ),
+                            ),
+                            // SizedBox(
+                            //   height: 200,
+                            //   width: double.infinity,
+                            //   child: ListView.builder(
+                            //     shrinkWrap: true,
+                            //     itemCount: ingredients.length,
+                            //     itemBuilder: (context, index) {
+                            //       return Row(
+                            //         children: [
+                            //           Expanded(
+                            //             child: TextField(
+                            //               decoration: InputDecoration(
+                            //                 labelText:
+                            //                     'Ingrediente ${index + 1}',
+                            //               ),
+                            //               controller: TextEditingController(
+                            //                   text: ingredients[index]),
+                            //               onChanged: (value) {
+                            //                 setState(() {
+                            //                   ingredients[index] = value;
+                            //                 });
+                            //               },
+                            //             ),
+                            //           ),
+                            //           const SizedBox(width: 10),
+                            //           const Expanded(
+                            //             child: TextField(
+                            //               decoration: InputDecoration(
+                            //                 labelText: 'Quantidade',
+                            //               ),
+                            //             ),
+                            //           ),
+                            //         ],
+                            //       );
+                            //     },
+                            //   ),
+                            // ),
+                            TextField(
+                              decoration: const InputDecoration(
+                                labelText: 'Adicionar Ingrediente',
+                              ),
+                              onSubmitted: (value) {
+                                setState(() {
+                                  ingredients.add(value);
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 10),
+                            const TextField(
+                              decoration: InputDecoration(
+                                labelText: 'Tempo de Preparo',
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            const TextField(
+                              decoration: InputDecoration(
+                                labelText: 'Dificuldade',
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            const TextField(
+                              decoration: InputDecoration(
+                                labelText: 'Calorias',
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            const TextField(
+                              decoration: InputDecoration(
+                                labelText: 'Vídeo',
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            const TextField(
+                              decoration: InputDecoration(
+                                labelText: 'Vídeo Passo a Passo',
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            const TextField(
+                              decoration: InputDecoration(
+                                labelText: 'Tags',
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            const TextField(
+                              decoration: InputDecoration(
+                                labelText: 'Modo de Preparo',
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: () {
+                                //save recipe
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Salvar'),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                    const TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Ingredientes',
-                      ),
-                    ),
-                    const TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Modo de Preparo',
-                      ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        //save recipe
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Salvar'),
-                    ),
-                  ],
+                  ),
                 ),
               );
             },
